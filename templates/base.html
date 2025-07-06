@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cancer Cell Classification{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        :root {
+            --merative-blue: #0072c6;
+            --merative-dark-blue: #003459;
+            --merative-light-blue: #e0f2fe;
+            --merative-grey: #f0f0f0;
+            --merative-dark-grey: #a9a9a9;
+            --merative-text-color: #2d3748;
+            --merative-heading-color: #1a202c;
+            --md-sys-primary: #0072c6;
+            --md-sys-on-primary: #fff;
+            --md-sys-secondary: #625b71;
+            --md-sys-on-secondary: #fff;
+            --md-sys-background: #f8f0fb;
+            --md-sys-on-background: #1c1b1e;
+            --md-sys-surface: #fff;
+            --md-sys-on-surface: #1c1b1e;
+            --md-sys-elevation1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --md-sys-elevation2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 7px rgba(0, 0, 0, 0.12);
+            --md-sys-elevation3: 0 6px 10px rgba(0, 0, 0, 0.19), 0 2px 5px rgba(0, 0, 0, 0.26);
+            --md-sys-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            --md-sys-outline: #79747e;
+            --md-sys-on-primary-container: #fff;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            margin: 0;
+            background-color: var(--merative-grey);
+            color: var(--merative-text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #fff;
+            padding: 25px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            width: 95%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: var(--merative-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 12px 18px;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            color: var(--merative-dark-blue);
+            transform: scale(1.05);
+        }
+
+        nav .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--merative-dark-blue);
+        }
+
+        .content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 1200px;
+            margin-bottom: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--merative-heading-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        /* Styles for form, result, error, and image container will go here or in specific page styles */
+    </style>
+    {% block page_style %}
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Cancer Cell Classification</a>
+        <div>
+            <a href="/">Home</a>
+            <a href="/test">Test</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

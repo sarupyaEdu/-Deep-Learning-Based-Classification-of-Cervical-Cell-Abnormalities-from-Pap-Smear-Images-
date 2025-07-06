@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}Test - Cancer Cell Classification{% endblock %}
+
+{% block page_style %}
+<style>
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  form,
+  .result-container,
+  .error-container,
+  .image-container,
+  .loader-container {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    width: 95%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    text-align: center;
+  }
+
+  form {
+    margin-right: 20px;
+  }
+
+  input[type="file"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    width: calc(100% - 22px);
+    background-color: #f1f1f1;
+  }
+
+  input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+
+  .result-container strong {
+    color: #198754;
+  }
+
+  .error-container {
+    background-color: rgba(248, 215, 218, 0.85);
+    color: #721c24;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    width: 300px;
+    height: auto;
+  }
+
+  .loader-container {
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loader {
+    width: 90px;
+    height: 14px;
+    box-shadow: 0 3px 0 #fff;
+    position: relative;
+    clip-path: inset(-40px 0 -5px)
+  }
+
+  .loader:before {
+    content: "";
+    position: absolute;
+    inset: auto calc(50% - 17px) 0;
+    height: 50px;
+    --g: no-repeat linear-gradient(#ccc 0 0);
+    background: var(--g), var(--g), var(--g), var(--g);
+    background-size: 16px 14px;
+    animation:
+      l7-1 2s infinite linear,
+      l7-2 2s infinite linear;
+  }
+
+  @keyframes l7-1 {
+    0%,
+    100% {
+      background-position: 0 -50px, 100% -50px
+    }
+
+    17.5% {
+      background-position: 0 100%, 100% -50px, 0 -50px, 100% -50px
+    }
+
+    35% {
+      background-position: 0 100%, 100% 100%, 0 -50px, 100% -50px
+    }
+
+    52.5% {
+      background-position: 0 100%, 100% 100%, 0 calc(100% - 16px), 100% -50px
+    }
+
+    70%,
+    98% {
+      background-position: 0 100%, 100% 100%, 0 calc(100% - 16px), 100% calc(100% - 16px)
+    }
+  }
+
+  @keyframes l7-2 {
+    0%,
+    70% {
+      transform: translate(0)
+    }
+
+    100% {
+      transform: translate(200%)
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="main-container">
+    <form method="POST" enctype="multipart/form-data">
+      <h1>Cancer Cell Classification</h1>
+      <input type="file" name="file" required>
+      <input type="submit" value="Upload and Predict">
+    </form>
+
+    {% if image_path %}
+      <div class="image-container">
+        <h3>Uploaded Image:</h3>
+        <img src="{{ url_for('uploaded_file', filename=image_path) }}" alt="Uploaded Image">
+      </div>
+    {% endif %}
+
+    <div class="loader-container" id="loader-container">
+      <div class="loader"></div>
+    </div>
+
+    {% if prediction %}
+      <div class="result-container">
+        Prediction: <strong>{{ prediction }}</strong> (Confidence: {{ confidence }})
+      </div>
+      <script>
+        document.getElementById("loader-container").style.display = "flex";
+      </script>
+    {% endif %}
+
+    {% if error %}
+      <div class="error-container">
+        Error: {{ error }}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
